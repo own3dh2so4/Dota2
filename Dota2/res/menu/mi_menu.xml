@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/todos"
+        	android:title="@string/all_hero"/>
+    <item android:id="@+id/fav"
+        android:title="@string/fav_hero"/>
+    <item android:id="@+id/search"
+        android:title="@string/verPerfil"/>
+    
+
+</menu>
