@@ -141,16 +141,14 @@ public class MiAdaptador  extends BaseAdapter{
 						 {
 						 	heroes.get(p).setGusta(0);
 						 	bdHero.update(heroes.get(p));
+						 	imageButton.setImageResource(android.R.drawable.btn_star_big_off);
 						 }
 					 else
 					 {
 						 heroes.get(p).setGusta(1);
-						 	bdHero.update(heroes.get(p));
+						 bdHero.update(heroes.get(p));
+						 imageButton.setImageResource(android.R.drawable.btn_star_big_on);
 					 }
-					 if (heroes.get(p).getGusta()==1)
-							imageButton.setImageResource(android.R.drawable.btn_star_big_on);
-						else
-							imageButton.setImageResource(android.R.drawable.btn_star_big_off);
 						 
 				}
 			});
