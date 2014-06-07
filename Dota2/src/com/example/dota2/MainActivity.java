@@ -218,6 +218,7 @@ public class MainActivity extends ListActivity{
 					bdHero.insert(toSave);
 					
 					file_download("http://cdn.dota2.com/apps/dota2/images/heroes/"+namePhoto+"_hphover.png", name+".png");
+					file_download("http://cdn.dota2.com/apps/dota2/images/heroes/"+namePhoto+"_vert.jpg", name+"_big.jpg");
 					
 					} catch (JSONException e) { 
 						e.printStackTrace(); } 
