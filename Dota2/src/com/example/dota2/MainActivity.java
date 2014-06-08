@@ -1,6 +1,7 @@
 package com.example.dota2;
 
 import java.io.File;
+import java.util.List;
 import java.util.Vector;
 
 import org.json.JSONArray;
@@ -27,7 +28,7 @@ import com.example.dota2.bbdd.BBDDHeroeDetail;
 import com.example.dota2.modelo.Heroe;
 
 public class MainActivity extends ListActivity{
-	private Vector<Heroe> heroes;
+	private List<Heroe> heroes;
 	private  BBDDHeroe bdHero;
 	private BBDDHeroeDetail bdHeroDetail;
 	private static String URL = "https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=45B405CD403024157E3FD11668D33BD7&language=es";
@@ -131,28 +132,23 @@ public class MainActivity extends ListActivity{
 		
 		switch(item.getItemId()){
 		case R.id.todos:
-				heroes = new Vector<Heroe>();
-				 for(int i=1; i<=10;i++)
-			        {
-			        	heroes.add(bdHero.findById(i));
-			        }
+				heroes = bdHero.buscarTodos();
 				 setListAdapter( new MiAdaptador(this, heroes));
 			break;
 		
 		case R.id.fav:
-			heroes = new Vector<Heroe>();
-			 for(int i=1; i<=10;i++)
-		        {
-				 	Heroe heroToInser = bdHero.findById(i);
-				 	if (heroToInser.getGusta()==1)
-				 		heroes.add(heroToInser);
-		        }
+			heroes = bdHero.buscarFavoritos();
 			 setListAdapter( new MiAdaptador(this, heroes));
 			break;
 			
 		case R.id.search:
 			Intent intent = new Intent(this, SearchActivity.class);
 			startActivity(intent);
+			break;
+			
+		case R.id.buscarHeroe:
+			Intent inten = new Intent(this, BuscarHeroe.class);
+			startActivity(inten);
 			break;
 		}
 		return true;

@@ -36,6 +36,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dota2.MainActivity" />
         </activity>
+        
+        <activity android:name=".BuscarHeroe"
+            android:parentActivityName="com.example.dota2.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dota2.MainActivity" />
+        </activity>
+        
     </application>
     
 

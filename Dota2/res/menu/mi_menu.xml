@@ -5,6 +5,8 @@
         	android:title="@string/all_hero"/>
     <item android:id="@+id/fav"
         android:title="@string/fav_hero"/>
+    <item android:id="@+id/buscarHeroe"
+        android:title="@string/buscarPorNombre"/>
     <item android:id="@+id/search"
         android:title="@string/verPerfil"/>
     

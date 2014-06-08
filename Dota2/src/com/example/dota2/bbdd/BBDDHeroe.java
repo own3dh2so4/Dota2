@@ -1,8 +1,13 @@
 package com.example.dota2.bbdd;
 
+import java.util.List;
+import java.util.Vector;
+
 import android.content.Context;
 import android.database.Cursor;
 
+import com.example.dota2.bbdd.auxiliar.Operator;
+import com.example.dota2.bbdd.auxiliar.QueryCondition;
 import com.example.dota2.modelo.Heroe;
 
 public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
@@ -84,4 +89,19 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 	public String[] getKeyValuesFromObject(Heroe object) {
 		return new String[]{object.getId()+""};
 	}
+	
+	public List<Heroe> buscarFavoritos(){
+		List<Heroe> ret= new  Vector<Heroe>();
+		QueryCondition condicion = new QueryCondition(BBDDHEROE_COLUMN_NAMES[4], Operator.IG, 1);
+		ret = findByCondition(new QueryCondition[] {condicion});
+		return ret;
+	}
+	
+	public List<Heroe> buscarTodos(){
+		List<Heroe> ret= new  Vector<Heroe>();
+		QueryCondition condicion = new QueryCondition(BBDDHEROE_COLUMN_NAMES[0], Operator.NIG, "");
+		ret = findByCondition(new QueryCondition[] {condicion});
+		return ret;
+	}
+	
 }

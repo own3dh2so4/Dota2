@@ -68,6 +68,8 @@ public abstract class BBDDAbstract<T,K> {
 		if (c.moveToFirst())
 		{
 			result.add(creaObjecto(c));
+			while(c.moveToNext())
+				result.add(creaObjecto(c));
 		}
 		c.close();
 		return result;
