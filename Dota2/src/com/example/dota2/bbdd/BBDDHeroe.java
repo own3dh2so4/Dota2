@@ -92,7 +92,7 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 	
 	public List<Heroe> buscarFavoritos(){
 		List<Heroe> ret= new  Vector<Heroe>();
-		QueryCondition condicion = new QueryCondition(BBDDHEROE_COLUMN_NAMES[4], Operator.IG, 1);
+		QueryCondition condicion = new QueryCondition("gusta", Operator.IG, 1);
 		ret = findByCondition(new QueryCondition[] {condicion});
 		return ret;
 	}
@@ -103,5 +103,13 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 		ret = findByCondition(new QueryCondition[] {condicion});
 		return ret;
 	}
+	
+	public List<Heroe> buscarPorNombre(String nombre){
+		List<Heroe> ret= new  Vector<Heroe>();
+		QueryCondition condicion = new QueryCondition("nombre", Operator.LIK, "%"+nombre+"%");
+		ret = findByCondition(new QueryCondition[] {condicion});
+		return ret;
+	}
+	
 	
 }

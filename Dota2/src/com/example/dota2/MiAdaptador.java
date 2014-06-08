@@ -117,7 +117,7 @@ public class MiAdaptador  extends BaseAdapter{
 			subTitulo.setText(success.getRol());
 			
 			ImageView imagen = (ImageView) v.findViewById(R.id.icono);
-			Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getName()+".png");
+			Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getPhoto()+".png");
 			imagen.setImageBitmap(bmp);
 			
 			final ImageButton imageButton = (ImageButton) v.findViewById(R.id.botonBuscar);
@@ -159,7 +159,7 @@ public class MiAdaptador  extends BaseAdapter{
 		subTitulo.setText(success.getRol());
 		
 		ImageView imagen = (ImageView) v.findViewById(R.id.icono);
-		Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getName()+".png");
+		Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getPhoto()+".png");
 		imagen.setImageBitmap(bmp);
 		
 		final ImageButton imageButton = (ImageButton) v.findViewById(R.id.botonBuscar);

@@ -58,4 +58,5 @@ public class Heroe {
 	public void setGusta(int gusta) {
 		this.gusta = gusta;
 	}
+
 }
