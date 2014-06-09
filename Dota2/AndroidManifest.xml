@@ -45,10 +45,17 @@
         </activity>
         
         <activity android:name=".HeroesBuscados"
-            android:parentActivityName="com.example.dota2.MainActivity">
+            android:parentActivityName="com.example.dota2.BuscarHeroe">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.dota2.BuscarHeroe" />
+        </activity>
+        
+        <activity android:name=".DetalleHeroeWeb"
+            android:parentActivityName="com.example.dota2.HeroesBuscados">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dota2.HeroesBuscados" />
         </activity>
         
     </application>

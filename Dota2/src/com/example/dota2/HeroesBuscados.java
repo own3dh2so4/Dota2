@@ -5,6 +5,8 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 
 import com.example.dota2.bbdd.BBDDHeroe;
 import com.example.dota2.modelo.Heroe;
@@ -24,15 +26,14 @@ public class HeroesBuscados extends ListActivity{
         heroes = bdHero.buscarPorNombre(name);
         
         
-        setListAdapter( new MiAdaptador(this, heroes));
-        
-        
-       
-        
-        //file_download("http://cdn.dota2.com/apps/dota2/images/heroes/tiny_sb.png");
-        
-        
-       
+        setListAdapter( new MiAdaptador(this, heroes));      
        }
+	
+	@Override
+	  protected void onListItemClick(ListView l, View v, int position, long id) {
+	    	Intent intent = new Intent(this, DetalleHeroeWeb.class);
+	    	intent.putExtra("heroe", heroes.get(position).getName());
+	    	startActivity(intent);
+	  }
 
 }
