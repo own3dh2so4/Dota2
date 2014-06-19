@@ -70,16 +70,10 @@ public class MiAdaptador  extends BaseAdapter{
 			imagen.setImageBitmap(bmp);
 			//imagen.setImageResource(heroes.elementAt(arg0).getPhoto());*/
 			this.inicializaVista(view, heroes.get(arg0));
-			
-		
 		}
 		
 		else
 			new MasHeroes(arg0+1,actividad,view).execute();
-		
-		
-		
-		
 		
 		return view;
 	}
@@ -103,12 +97,10 @@ public class MiAdaptador  extends BaseAdapter{
 		protected Heroe doInBackground(Void... params) {
 			Heroe newHeroe = bdHero.findById(idHero);
 			
-			
-			
 			return newHeroe;
 		}
 		
-		protected void onPostExecute(final  Heroe success){
+		protected void onPostExecute(final Heroe success){
 			
 			TextView textView = (TextView)v.findViewById(R.id.nombre);
 			textView.setText(success.getName());
