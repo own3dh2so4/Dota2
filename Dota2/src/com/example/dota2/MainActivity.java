@@ -105,10 +105,6 @@ public class MainActivity extends ListActivity{
 		return true;
 	}
 	
-	
-	
-	
-	
 	private class CargaHeroesTask extends AsyncTask<String, Void, Boolean>{
 
 		private ProgressDialog dialog;
@@ -162,7 +158,7 @@ public class MainActivity extends ListActivity{
 						name="Natures Prophet";
 					
 					// Creamos en heroe y lo insertamos en la BBDD
-					Heroe toSave = new Heroe(id, name, "Troll", namePhoto, 0);
+					Heroe toSave = new Heroe(id, name, "", namePhoto, 0);
 					heroes.add(toSave);
 					bdHero.insert(toSave);
 					
@@ -216,11 +212,7 @@ public class MainActivity extends ListActivity{
 			
 			return ret;
 		}
-		
-		
-		}
-			
-		
+	}
 
 	private boolean exitsDirectory()
 	{

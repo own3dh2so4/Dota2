@@ -11,6 +11,11 @@ import android.widget.ListView;
 import com.example.dota2.bbdd.BBDDHeroe;
 import com.example.dota2.modelo.Heroe;
 
+/**
+ * Actividad que permite buscar un heroe por el nombre.
+ * @author David García
+ * @author Daniel Serrano
+ */
 public class HeroesBuscados extends ListActivity{
 	private List<Heroe> heroes;
 	private  BBDDHeroe bdHero;

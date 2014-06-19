@@ -18,6 +18,11 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+/**
+ * Descarga y parse un JSON 
+ * @author David García
+ * @author Daniel Serrano
+ */
 public class JSONParser {
 	static InputStream iStream = null; 
 	static JSONArray jarray = null; 
