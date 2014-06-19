@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+/**
+ * Actividad que muestra la vista web del heroe.
+ * @author David García
+ * @author Daniel Serrano
+ *
+ */
 public class SearchActivity extends Activity{
 	
 	@Override 
