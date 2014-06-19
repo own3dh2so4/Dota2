@@ -15,8 +15,6 @@ public class BBDDHeroeDetail extends BBDDAbstract<HeroeDetail, Integer>{
 	{
 		bbdd = new HeroesSQLiteHelper(context, "DBDota", null, 1);
 	}
-	
-	
 
 	@Override
 	public String[] getKeyValues(Integer id) {
@@ -52,6 +50,4 @@ public class BBDDHeroeDetail extends BBDDAbstract<HeroeDetail, Integer>{
 	public String[] getKeyValuesFromObject(HeroeDetail object) {
 		return new String[]{object.getId()+""};
 	}
-	
-	
 }

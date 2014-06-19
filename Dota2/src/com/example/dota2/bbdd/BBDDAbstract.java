@@ -9,10 +9,24 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.dota2.bbdd.auxiliar.Operator;
 import com.example.dota2.bbdd.auxiliar.QueryCondition;
 
+/**
+ * Clase abstracta paraproveer a los objetos de la capacidad
+ * de operar sus datos sobre la base de datos (patrón Abstract Mapped)
+ * @author David García
+ * @author Daniel Serrano
+ *
+ * @param <T> Tipo del objeto que va a operar contra la base de datos.
+ * @param <K> Tipo de la clave primaria del objeto que se va a usar.
+ */
 public abstract class BBDDAbstract<T,K> {
 
+	// Proveedor de la base de datos de heroes
 	protected HeroesSQLiteHelper bbdd;
 	
+	/**
+	 * Método para poder insertar un nuevo elemento en la tabla
+	 * @param object Elemento a insertar
+	 */
 	public void insert(T object)
 	{
 		SQLiteDatabase bd = bbdd.getWritableDatabase();
@@ -40,6 +54,11 @@ public abstract class BBDDAbstract<T,K> {
 		bd.close();
 	}
 	
+	/**
+	 * Método para buscar elementos que cumplan una condición.
+	 * @param conditions Grupo de condiciones para encontrar los elementos.
+	 * @return Lista de elementos encontrados que cumplen las condiciones.
+	 */
 	public List<T> findByCondition(QueryCondition[] conditions)
 	{
 		List<T> result = new ArrayList<T>();
@@ -75,6 +94,11 @@ public abstract class BBDDAbstract<T,K> {
 		return result;
 	}
 	
+	/**
+	 * Método que devuelve el elemento con la clave primaria id si existe.
+	 * @param id Clave primaria de elemento buscado.
+	 * @return Elemento con buscado.
+	 */
 	public T findById(K id) {
 		T result       = null;		
 		String[] keyNameColum = getKeyColumnName(); 
@@ -91,6 +115,10 @@ public abstract class BBDDAbstract<T,K> {
 		return result;
 	}
 	
+	/**
+	 * Método para actualizar los datos de un elemento existente.
+	 * @param object Elemento a modificar.
+	 */
 	public void update(T object)
 	{
 		SQLiteDatabase bd = bbdd.getWritableDatabase();
@@ -115,6 +143,11 @@ public abstract class BBDDAbstract<T,K> {
 		bd.execSQL(exec);
 	}
 
+	/**
+	 * 
+	 * @param object
+	 * @return
+	 */
 	public abstract String[] getKeyValuesFromObject(T object);
 
 	public abstract String[] getKeyValues(K id);

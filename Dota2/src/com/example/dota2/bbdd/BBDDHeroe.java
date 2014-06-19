@@ -10,74 +10,79 @@ import com.example.dota2.bbdd.auxiliar.Operator;
 import com.example.dota2.bbdd.auxiliar.QueryCondition;
 import com.example.dota2.modelo.Heroe;
 
+/**
+ * Clase que se encarga de gestionar la tabla de heroes de la base de datos.
+ * Define la tabla, sus campos y operaciones generales sobre ella.
+ * @author David García
+ * @author Daniel Serrano
+ */
 public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 	
 	private static final String[] BBDDHEROE_KEY_COLUMN_NAME = new String[]{"codigo"};
 	private static final String[] BBDDHEROE_COLUMN_NAMES = new String[]{"codigo","nombre","rol","foto", "gusta"};
 	private static final String BBDDHEROE_TABLE_NAME = "Heroe";
 
-	
+	/**
+	 * Con ayuda del contexto abre la conexión con la base de datos.
+	 * @param context Contexto de la app
+	 */
 	public BBDDHeroe(Context context)
 	{
 		bbdd= new HeroesSQLiteHelper(context, "DBDota", null, 1);
 	}
-	/*
-	public void insert (Heroe hero)
-	{
-		SQLiteDatabase bd = bbdd.getWritableDatabase();
-		
-		if(bd != null)
-		{
-				bd.execSQL("INSERT INTO Heroe (codigo ,  nombre,  rol,  foto) " +
-					"VALUES (" + hero.getId() + ", '" + hero.getName() +"', '"+ hero.getRol() +"', "+ hero.getPhoto()  + ")");
-		}
-		
-		bd.close();
-	}
 	
-	public Heroe findById (Integer i)
-	{
-		SQLiteDatabase bd = bbdd.getWritableDatabase();
-		Heroe hero=null;
-		if (bd!=null)
-		{
-			Cursor c = bd.rawQuery(" SELECT codigo, nombre, rol, foto FROM Heroe WHERE codigo=?", new String[] {i+""});
-			if (c.moveToFirst())
-			{
-				hero = new Heroe(i, c.getString(1), c.getString(2), c.getInt(3));
-			}
-		}
-		return hero;
-	}*/
-
-	
-
+	/**
+	 * Devuelve la primary key de la tabla.
+	 * @return Primary key
+	 */
 	@Override
 	public String[] getKeyColumnName() {
 		return BBDDHEROE_KEY_COLUMN_NAME;
 	}
 
+	/**
+	 * Crea un objeto del timpo que puede almacenar la tabla
+	 * a partir de un cursor.
+	 * 
+	 * @return Ojeto heroe creado.
+	 */
 	@Override
 	public Heroe creaObjecto(Cursor c) {
 		
 		return  new Heroe(c.getInt(0), c.getString(1), c.getString(2), c.getString(3), c.getInt(4));
 	}
 
+	/**
+	 * Crea un array con los datos de un heroe.
+	 * @param Heroe del que generar el array de datos.
+	 * @return Datos del heroe
+	 */
 	@Override
 	public Object[] getValores(Heroe object) {
 		return new Object[]{object.getId(),object.getName(),object.getRol(),object.getPhoto(), object.getGusta()};
 	}
 
+	/**
+	 * Devuelve las columnas de la tabla.
+	 * @return Columnas de la tabla.
+	 */
 	@Override
 	public String[] getNombreColumnas() {
 		return BBDDHEROE_COLUMN_NAMES;
 	}
 
+	/**
+	 * Devuelve el nombre de la tabla.
+	 * @return Nombre de la tabla.
+	 */
 	@Override
 	public String nombreTabla() {
 		return BBDDHEROE_TABLE_NAME;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String[] getKeyValues(Integer id) {
 		return new String[]{id+""};
