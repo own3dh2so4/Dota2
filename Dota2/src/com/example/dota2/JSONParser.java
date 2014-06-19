@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 /**
- * Descarga y parse un JSON 
+ * Descarga y parse un JSON del API de STEAM para obtener los heroes
  * @author David García
  * @author Daniel Serrano
  */
@@ -31,6 +31,11 @@ public class JSONParser {
 	public JSONParser() {
 	}
 
+	/**
+	 * Descarga un JSON desde una url
+	 * @param url Url desde la que baja el JSON
+	 * @return Un array de JSON
+	 */
 	public JSONArray getJSONFromUrl(String url) { 
 		StringBuilder builder = new StringBuilder();
 		HttpClient client = new DefaultHttpClient(); 
@@ -61,6 +66,11 @@ public class JSONParser {
 		return jarray;
 		}
 	
+	/**
+	 * Devuelve un JSONObject descargandolo de una url
+	 * @param url Url desde la que bajar el JSON
+	 * @return Objeso JSON
+	 */
 	public JSONObject getJSONObjectFromUrl(String url)
 	{
 		JSONObject jsonResponse=null;
@@ -92,8 +102,4 @@ public class JSONParser {
 		
 		return jsonResponse;
 	}
-		
-
-	
-	
 }

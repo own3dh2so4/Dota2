@@ -27,6 +27,11 @@ import android.widget.ListView;
 import com.example.dota2.bbdd.BBDDHeroe;
 import com.example.dota2.modelo.Heroe;
 
+/**
+ * Actividad principal, muestra la lista de heroes
+ * @author David García
+ * @author Daniel Serrano
+ */
 public class MainActivity extends ListActivity{
 	private List<Heroe> heroes;
 	private  BBDDHeroe bdHero;
@@ -63,8 +68,6 @@ public class MainActivity extends ListActivity{
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-//    	Intent intent = new Intent(this, HeroActivity.class);
-//    	intent.putExtra("heroe", heroes.get(position).getId());
 		Intent intent = new Intent(this, DetalleHeroeWeb.class);
     	intent.putExtra("heroe", heroes.get(position).getName());
     	startActivity(intent);
@@ -78,6 +81,9 @@ public class MainActivity extends ListActivity{
 		return true;
 	}
 	
+	/**
+	 * Entradas del menú de opciones de la aplicación
+	 */
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		
@@ -105,6 +111,11 @@ public class MainActivity extends ListActivity{
 		return true;
 	}
 	
+	/**
+	 * Clase que carga la información y fotos de los heroes
+	 * @author David García
+	 * @author Daniel Serrano
+	 */
 	private class CargaHeroesTask extends AsyncTask<String, Void, Boolean>{
 
 		private ProgressDialog dialog;
@@ -141,7 +152,6 @@ public class MainActivity extends ListActivity{
 				if (result!=null)
 					structure = result.getJSONArray("heroes");
 			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			if(structure!=null)
@@ -153,7 +163,8 @@ public class MainActivity extends ListActivity{
 					String nameDota = c.getString("name");
 					String namePhoto = getName(nameDota);
 					
-					//TODO 
+					//Cambiar el nombre del heroe quitando la commilla
+					// para evitar problemas de SQL
 					if (id==52)
 						name="Natures Prophet";
 					
@@ -171,7 +182,11 @@ public class MainActivity extends ListActivity{
 			return null; 
 			}
 		
-		
+		/**
+		 * Descarga las fotos de los heroes
+		 * @param uRl Url donde obtener las foto
+		 * @param nameFile Nombre de la foto
+		 */
 		private void file_download(String uRl,String nameFile) {
 	        File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
 	                + "/fotosDota2");
@@ -196,6 +211,11 @@ public class MainActivity extends ListActivity{
 
 	    }
 		
+		/**
+		 * Adapta el nombre de las fotos del api al descargado
+		 * @param nameDota Nombre de la foto
+		 * @return Nombre adaptado
+		 */
 		private String getName(String nameDota)
 		{
 			String ret=null;
@@ -214,12 +234,20 @@ public class MainActivity extends ListActivity{
 		}
 	}
 
+	/**
+	 * Comprueba que el directorio de fotos existe
+	 * @return true si existe, false si no
+	 */
 	private boolean exitsDirectory()
 	{
 		 File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2");
 		 return direct.exists();
 	}
 	
+	/**
+	 * Genera un nuevo indice para los heroes.
+	 * @return indice del heroe
+	 */
 	private int getAuto() {
 		return auto++;
 	}
