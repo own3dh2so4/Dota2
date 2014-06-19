@@ -34,7 +34,7 @@ public class MainActivity extends ListActivity{
 	private BBDDHeroeDetail bdHeroDetail;
 	private static String URL = "https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=45B405CD403024157E3FD11668D33BD7&language=es";
 	private Map<Integer, String[]> fotosHeroes;
-	
+	private int auto=1;
 	
 	@SuppressLint("UseSparseArrays")
 	@Override 
@@ -229,7 +229,7 @@ public class MainActivity extends ListActivity{
 				try { 
 					JSONObject c = structure.getJSONObject(i); 
 					String name = c.getString("localized_name"); 
-					int id = c.getInt("id");
+					int id = getAuto();
 					String nameDota = c.getString("name");
 					String namePhoto = getName(nameDota);
 					
@@ -311,6 +311,10 @@ public class MainActivity extends ListActivity{
 	{
 		 File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2");
 		 return direct.exists();
+	}
+	
+	private int getAuto() {
+		return auto++;
 	}
 }
 	
