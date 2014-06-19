@@ -13,7 +13,7 @@ import com.example.dota2.modelo.Heroe;
 /**
  * Clase que se encarga de gestionar la tabla de heroes de la base de datos.
  * Define la tabla, sus campos y operaciones generales sobre ella.
- * @author David García
+ * @author David GarcÃ­a
  * @author Daniel Serrano
  */
 public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
@@ -23,7 +23,7 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 	private static final String BBDDHEROE_TABLE_NAME = "Heroe";
 
 	/**
-	 * Con ayuda del contexto abre la conexión con la base de datos.
+	 * Con ayuda del contexto abre la conexiï¿½n con la base de datos.
 	 * @param context Contexto de la app
 	 */
 	public BBDDHeroe(Context context)
@@ -88,13 +88,19 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 		return new String[]{id+""};
 	}
 
-
-
+	/**
+	 * Devulve las primary keys de un heroe
+	 * @return Lista de primary keys
+	 */
 	@Override
 	public String[] getKeyValuesFromObject(Heroe object) {
 		return new String[]{object.getId()+""};
 	}
 	
+	/**
+	 * Devuelve los heroes marcados como favoritos
+	 * @return Heroes favoritos
+	 */
 	public List<Heroe> buscarFavoritos(){
 		List<Heroe> ret= new  Vector<Heroe>();
 		QueryCondition condicion = new QueryCondition("gusta", Operator.IG, 1);
@@ -102,6 +108,10 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 		return ret;
 	}
 	
+	/**
+	 * Devuelve todos los heroes de la base de datos
+	 * @return Lista con todos los heroes
+	 */
 	public List<Heroe> buscarTodos(){
 		List<Heroe> ret= new  Vector<Heroe>();
 		QueryCondition condicion = new QueryCondition(BBDDHEROE_COLUMN_NAMES[0], Operator.NIG, "");
@@ -109,6 +119,11 @@ public class BBDDHeroe extends BBDDAbstract<Heroe, Integer>{
 		return ret;
 	}
 	
+	/**
+	 * Devuelve los heroes que coincidan con un nombre
+	 * @param nombre Nombre coincidente en la bÃºsqueda
+	 * @return Lista de heroes con coincidencia en el nombre
+	 */
 	public List<Heroe> buscarPorNombre(String nombre){
 		List<Heroe> ret= new  Vector<Heroe>();
 		QueryCondition condicion = new QueryCondition("nombre", Operator.LIK, "%"+nombre+"%");

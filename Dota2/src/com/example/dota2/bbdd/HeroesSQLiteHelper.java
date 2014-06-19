@@ -5,6 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Clase que se encarga de gestionar la creación y actualización de las
+ * tablas de heroes y detalles de heroes
+ * @author David García
+ * @author Daniel Serrano
+ *
+ */
 public class HeroesSQLiteHelper extends SQLiteOpenHelper{
 
 	private String sqlCreate = "CREATE TABLE Heroe (codigo INTEGER PRIMARY KEY, nombre TEXT, nombreInterno TEXT, rol TEXT, foto TEXT, gusta INTEGER)";

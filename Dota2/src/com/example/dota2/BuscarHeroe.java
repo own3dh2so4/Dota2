@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Actividad que permite buscar un heroe de entre todos
+ * los que aparecen en la lista principal
+ * @author David García
+ * @author Daniel Serrano
+ */
 public class BuscarHeroe extends Activity{
 
 	private Activity me;
@@ -16,18 +22,6 @@ public class BuscarHeroe extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscarheroe);
         me = this;
-        
-        /*ImageButton imageB = (ImageButton) findViewById(R.id.botonBuscar);
-        imageB.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				String nick = ((EditText) findViewById(R.id.editBuscate)).getText().toString();
-				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://dotabuff.com/search?utf8=%E2%9C%93&q="+nick));
-				startActivity(i);
-				
-			}
-		});*/
         
         Button boton = (Button) findViewById(R.id.button1);
         boton.setOnClickListener(new View.OnClickListener() {
