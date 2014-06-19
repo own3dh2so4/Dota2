@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class HeroesSQLiteHelper extends SQLiteOpenHelper{
 
 	private String sqlCreate = "CREATE TABLE Heroe (codigo INTEGER PRIMARY KEY, nombre TEXT, nombreInterno TEXT, rol TEXT, foto TEXT, gusta INTEGER)";
-	private String sqlCreateDetail = "CREATE TABLE HeroeDetail (codigo INTEGER PRIMARY KEY, descripcion TEXT, foto INTEGER)";
+	private String sqlCreateDetail = "CREATE TABLE HeroeDetail (codigo INTEGER PRIMARY KEY, descripcion TEXT, foto TEXT)";
 
 	
 	public HeroesSQLiteHelper(Context context, String name,
@@ -18,15 +18,18 @@ public class HeroesSQLiteHelper extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(sqlCreate);	
+		db.execSQL("DROP TABLE IF EXISTS Heroe");
+		db.execSQL("DROP TABLE IF EXISTS HeroeDetail");
+		db.execSQL(sqlCreate);
 		db.execSQL(sqlCreateDetail);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS Heroe");
+		db.execSQL("DROP TABLE IF EXISTS HeroeDetail");
 		db.execSQL(sqlCreate);
-		
+		db.execSQL(sqlCreateDetail);
 	}
 
 }

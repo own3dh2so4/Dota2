@@ -1,13 +1,14 @@
 package com.example.dota2;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
-
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -22,53 +23,79 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-
 import com.example.dota2.bbdd.BBDDHeroe;
 import com.example.dota2.bbdd.BBDDHeroeDetail;
 import com.example.dota2.modelo.Heroe;
+import com.example.dota2.modelo.HeroeDetail;
 
 public class MainActivity extends ListActivity{
 	private List<Heroe> heroes;
 	private  BBDDHeroe bdHero;
 	private BBDDHeroeDetail bdHeroDetail;
 	private static String URL = "https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?key=45B405CD403024157E3FD11668D33BD7&language=es";
-	private int auto=1;
+	private Map<Integer, String[]> fotosHeroes;
 	
 	
+	@SuppressLint("UseSparseArrays")
 	@Override 
 	public void onCreate(Bundle savedInstanceState) {
+		
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainactivity);
-        heroes = new Vector<Heroe>();
+        
+        //Lista de los heroes
+        heroes = new ArrayList<Heroe>();
+        // Base de datos de los heroes
         bdHero = new BBDDHeroe(this);
+        // Base de datos de los dealles de los heroes
         bdHeroDetail = new BBDDHeroeDetail(this);
         
-        if(!exitsDirectory())
+        // Nombre de las fotos de lista y detalle de los heroes
+        fotosHeroes = new HashMap<Integer, String[]>();
+        
+        // Si no existe el directorio con las fotos se crea y se descargan
+        if(!exitsDirectory()) {
         	new CargaHeroesTask(this).execute();
+        }
+        // Si existe, solo se crea la lista a mostrar desde la base de datos
         else
         {
-        	 for(int i=0; i<=106;i++)
+        	 for(int i=1; i<=bdHero.buscarTodos().size();i++)
              {
-             	//heroes.add(bdHero.findById(i));
-        		 heroes.add(null);
+        		Heroe heroe = bdHero.findById(i);
+             	heroes.add(heroe);
              }
              setListAdapter( new MiAdaptador(this, heroes));
         }
-        
-       
-        
         //file_download("http://cdn.dota2.com/apps/dota2/images/heroes/tiny_sb.png");
-        
-        
-       
        }
 	
 	@Override
-	  protected void onListItemClick(ListView l, View v, int position, long id) {
-	    	Intent intent = new Intent(this, HeroActivity.class);
-	    	intent.putExtra("heroe", heroes.get(position).getId());
-	    	startActivity(intent);
-	  }
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+    	Intent intent = new Intent(this, HeroActivity.class);
+    	intent.putExtra("heroe", heroes.get(position).getId());
+    	startActivity(intent);
+	}
+	
+	private void generarDetalleHeroe(Heroe heroe) {
+		
+		String desc = "Descripción por defecto";
+		int id = heroe.getId();
+		
+		switch (id) {
+		case 1:
+			desc = "Como un gólem o una gárgola, Earthshaker fue uno con la tierra, pero ahora camina libremente sobre ella. A diferencia de las otras entidades, se creó a sí mismo a través de un acto de voluntad, y no sirve a ningún otro maestro. En su sueño inquieto, encerrado en una profunda fisura en la piedra, se dio cuenta de la vida que transcurría libremente por encima de él y se volvió curioso. Durante una época de temblores, los picos de Nishai fueron sacudidos, provocando derrumbamientos que cambiaron el curso de los ríos y convirtieron los valles poco profundos en abismos sin fondo. Cuando la tierra finalmente dejó de temblar, Earthshaker salió del polvo que se asentaba, apartando enormes rocas como si se tratasen de una ligera manta. Se convirtió en una bestia mortal, y se llamó a sí mismo Raigor Pezuñapétrea. Ahora sangra, respira y por lo tanto puede morir, pero su espíritu sigue siendo ese de la tierra. Su poder reside en el tótem mágico que nunca deja de lado y, el día que regrese al polvo, la tierra lo tratará como a un hijo pródigo.";
+			break;
+		}
+		
+		HeroeDetail heroeDetail = new HeroeDetail(id, desc, getFotoDetail(id));
+		
+		bdHeroDetail.insert(heroeDetail);
+	}
+	
+	private String getFotoDetail(int id) {
+		return (fotosHeroes != null && fotosHeroes.get(id) != null ) ? fotosHeroes.get(id)[1] : "";
+	}
 	
 	/*public void minarDataBase(){
 		if (bdHero.findById(1)==null)
@@ -175,6 +202,7 @@ public class MainActivity extends ListActivity{
 			}
 		
 		protected void onPostExecute(final Boolean success) {
+
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 			}
@@ -201,7 +229,7 @@ public class MainActivity extends ListActivity{
 				try { 
 					JSONObject c = structure.getJSONObject(i); 
 					String name = c.getString("localized_name"); 
-					int id = getAuto();
+					int id = c.getInt("id");
 					String nameDota = c.getString("name");
 					String namePhoto = getName(nameDota);
 					
@@ -209,12 +237,22 @@ public class MainActivity extends ListActivity{
 					if (id==52)
 						name="Natures Prophet";
 					
+					// Creamos en heroe y lo insertamos en la BBDD
 					Heroe toSave = new Heroe(id, name, "Troll", namePhoto, 0);
 					heroes.add(toSave);
 					bdHero.insert(toSave);
 					
+					// Descarga las fotos del heroe, para la lista y la vista de detalle
 					file_download("http://cdn.dota2.com/apps/dota2/images/heroes/"+namePhoto+"_hphover.png", namePhoto+".png");
-					//file_download("http://cdn.dota2.com/apps/dota2/images/heroes/"+namePhoto+"_vert.jpg", name+"_big.jpg");
+					file_download("http://cdn.dota2.com/apps/dota2/images/heroes/"+namePhoto+"_vert.jpg", namePhoto+"_big.jpg");
+					
+					// Array de cadenas para el nombre de las fotos y la descripción del heroe
+					String[] fotos = new String[2];
+					fotos[0] = namePhoto + ".png";
+					fotos[1] = namePhoto + "_big.jpg";
+					fotosHeroes.put(id, fotos);
+					
+					generarDetalleHeroe(toSave);
 					
 					} catch (JSONException e) { 
 						e.printStackTrace(); } 
@@ -274,12 +312,6 @@ public class MainActivity extends ListActivity{
 		 File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2");
 		 return direct.exists();
 	}
-	
-	private int getAuto()
-	{
-		return auto++;
-	}
-		
 }
 	
 

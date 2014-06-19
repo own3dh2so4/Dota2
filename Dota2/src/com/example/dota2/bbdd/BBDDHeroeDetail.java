@@ -30,7 +30,7 @@ public class BBDDHeroeDetail extends BBDDAbstract<HeroeDetail, Integer>{
 
 	@Override
 	public HeroeDetail creaObjecto(Cursor c) {
-		return new HeroeDetail(c.getInt(0), c.getString(1),  c.getInt(2));
+		return new HeroeDetail(c.getInt(0), c.getString(1),  c.getString(2));
 	}
 
 	@Override

@@ -1,7 +1,9 @@
 package com.example.dota2;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,8 +28,13 @@ public class HeroActivity extends Activity{
         BBDDHeroeDetail bdHeroDetail = new BBDDHeroeDetail(this);
         HeroeDetail heroDetail = bdHeroDetail.findById(idHero);
         
-        ImageView imagenHeroe = (ImageView) findViewById(R.id.imagen);
-        imagenHeroe.setImageResource(heroDetail.getPhoto());
+        if (heroDetail != null && (heroDetail.getPhoto() != null || ! "".equals(heroDetail.getPhoto()))) {
+		    Uri.Builder uriB = new Uri.Builder();
+		    uriB.path(Environment.getExternalStorageDirectory().getAbsolutePath() + "/fotosDota2/" + heroDetail.getPhoto());
+
+	        ImageView imagenHeroe = (ImageView) findViewById(R.id.imagen);
+	        imagenHeroe.setImageURI(uriB.build());
+        }
         
         TextView nombreHeroe = (TextView) findViewById(R.id.nombreVistaHeroe);
         nombreHeroe.setText(heroeAMostrar.getName());
