@@ -17,6 +17,11 @@ import android.widget.TextView;
 import com.example.dota2.bbdd.BBDDHeroe;
 import com.example.dota2.modelo.Heroe;
 
+/**
+ * Clase usada como adaptador para ver la lista de Heroes.
+ * @author David García
+ * @author Daniel Serrano
+ */
 public class MiAdaptador  extends BaseAdapter{
 
 	private final ListActivity actividad;
@@ -67,6 +72,11 @@ public class MiAdaptador  extends BaseAdapter{
 		return view;
 	}
 	
+	/**
+	 * Clase que se ejecuta de forma asincrona para ir rellenando la lista mientras se lee la base de datos.
+	 * @author David García
+	 * @author Daniel Serrano
+	 */
 	public class MasHeroes extends AsyncTask<Void, Void, Heroe>{
 
 		private int idHero;
@@ -96,6 +106,11 @@ public class MiAdaptador  extends BaseAdapter{
 		
 	}
 	
+	/**
+	 * Metodo que inicializa el panel de la lista de un heroe.
+	 * @param v la vista
+	 * @param success la informacion con el heroe.
+	 */
 	public void inicializaVista (View v, final Heroe success){
 		TextView textView = (TextView)v.findViewById(R.id.nombre);
 		textView.setText(success.getName());
