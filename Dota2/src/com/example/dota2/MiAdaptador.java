@@ -3,8 +3,7 @@ package com.example.dota2;
 import java.util.List;
 
 import android.app.ListActivity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -59,16 +58,6 @@ public class MiAdaptador  extends BaseAdapter{
 		
 		if (heroes.get(arg0) !=null)
 		{
-			/*TextView textView = (TextView)view.findViewById(R.id.nombre);
-			textView.setText(heroes.get(arg0).getName());
-			
-			TextView subTitulo = (TextView)view.findViewById(R.id.subtitulo);
-			subTitulo.setText(heroes.get(arg0).getRol());
-			
-			ImageView imagen = (ImageView) view.findViewById(R.id.icono);
-			Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +heroes.get(arg0).getName()+".png");
-			imagen.setImageBitmap(bmp);
-			//imagen.setImageResource(heroes.elementAt(arg0).getPhoto());*/
 			this.inicializaVista(view, heroes.get(arg0));
 		}
 		
@@ -102,43 +91,7 @@ public class MiAdaptador  extends BaseAdapter{
 		
 		protected void onPostExecute(final Heroe success){
 			
-			TextView textView = (TextView)v.findViewById(R.id.nombre);
-			textView.setText(success.getName());
-			
-			TextView subTitulo = (TextView)v.findViewById(R.id.subtitulo);
-			subTitulo.setText(success.getRol());
-			
-			ImageView imagen = (ImageView) v.findViewById(R.id.icono);
-			Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getPhoto()+".png");
-			imagen.setImageBitmap(bmp);
-			
-			final ImageButton imageButton = (ImageButton) v.findViewById(R.id.botonBuscar);
-			if (success.getGusta()==1)
-				imageButton.setImageResource(android.R.drawable.btn_star_big_on);
-			else
-				imageButton.setImageResource(android.R.drawable.btn_star_big_off);
-			
-			imageButton.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					
-					 BBDDHeroe bdHero = new BBDDHeroe(actividad);
-					 if (success.getGusta()==1)
-						 {
-						 	success.setGusta(0);
-						 	bdHero.update(success);
-						 	imageButton.setImageResource(android.R.drawable.btn_star_big_off);
-						 }
-					 else
-					 {
-						 success.setGusta(1);
-						 bdHero.update(success);
-						 imageButton.setImageResource(android.R.drawable.btn_star_big_on);
-					 }
-						 
-				}
-			});
-			
-			
+			inicializaVista(v, success);
 		}
 		
 	}
@@ -151,8 +104,9 @@ public class MiAdaptador  extends BaseAdapter{
 		subTitulo.setText(success.getRol());
 		
 		ImageView imagen = (ImageView) v.findViewById(R.id.icono);
-		Bitmap bmp = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getPhoto()+".png");
-		imagen.setImageBitmap(bmp);
+		Uri.Builder uriB = new Uri.Builder();
+	    uriB.path(Environment.getExternalStorageDirectory().getAbsolutePath()   + "/fotosDota2/" +success.getPhoto()+".png");
+        imagen.setImageURI(uriB.build());
 		
 		final ImageButton imageButton = (ImageButton) v.findViewById(R.id.botonBuscar);
 		if (success.getGusta()==1)
